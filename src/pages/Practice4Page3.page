@@ -1,0 +1,80 @@
+<apex:page controller="Practice4Controller3" sidebar="false" showHeader="false" docType="html-5.0">
+    <apex:slds />
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+<span class="slds-icon_container slds-icon-custom-custom68">
+<svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+<use xmlns:xlink="http://www.w3.org/1999/xlink"
+     xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/custom-sprite/svg/symbols.svg#custom68')}"/>
+</svg>
+</span>
+            <div style="margin-left:1rem; font-size:200%">{!$Label.bikeShop1}</div>
+        </div>
+    </div>
+    <div style="width: 20%; margin: auto">
+        <apex:pageMessages />
+    </div>
+    <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-3">
+            <div class="slds-grid_vertical" style="height:100%">
+                <div class="slds-col" style="margin-left:0.5rem"><font size="5" color="#4682B4">{!prod.Name}</font>
+                </div>
+                <div class="slds-col" style="text-align: center;">
+                    <apex:image id="pic" value="{!prod.Image_Url__c}" style="margin-bottom:0.5rem" width="250px"
+                                height="auto" alt="Description"/>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+            <div class="slds-grid_vertical" style="height:100%; margin-top:2rem">
+                <div class="slds-col"><font size="4" color="#008000">Price {!prod.Unit_Price__c} USD for one bike<br/>Available
+                        for purchase: {!prod.Units_Available__c}</font></div>
+                <div class="slds-col">
+                    <button class="slds-button slds-button_brand" style="margin-top:0.5rem"
+                            onclick="Test1()">{!$Label.buyThisBike}</button>
+                    <button class="slds-button slds-button_outline-brand" style="margin-top:0.5rem"
+                            onclick="Practice4Page1('{!prod.Id}')">{!$Label.backToBikeShop}</button>
+                </div>
+                <div class="slds-col"><font style="margin-top:2rem" size="5" color="#7B68EE">Total Price in USD:&nbsp;<apex:outputLabel id="total" value="{!amount}"/>
+                    </font></div>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-3">
+            <div class="slds-grid_vertical" style="height:100%; font-size:145%; margin-top:2rem">
+                <apex:form >
+                    <div class="slds-col">
+                        <apex:outputLabel for="email">{!$Label.email}</apex:outputLabel>&nbsp;<apex:input type="email"
+                                                                                                          id="email"
+                                                                                                          value="{!email}"
+                                                                                                          onchange="getCont()"/>
+                    </div>
+                    <div class="slds-col" style="margin-top:0.5rem">
+                        <apex:outputLabel for="fname">{!$Label.firstName}</apex:outputLabel>&nbsp;&nbsp;<apex:input type="text" id="fname" value="{!firstName}"/>
+                    </div>
+                    <div class="slds-col" style="margin-top:0.5rem">
+                        <apex:outputLabel for="lname">{!$Label.lastName}</apex:outputLabel>&nbsp;&nbsp;
+                        <apex:input type="text" id="lname" value="{!lastName}" onchange="checkQuantity()"/>
+                    </div>
+                    <div class="slds-col" style="margin-top:0.5rem">
+                        <apex:outputLabel for="bikeQuantity">{!$Label.quantity}</apex:outputLabel>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <apex:input html-min="0" type="number" id="bikeQuantity" value="{!bikeQuantity}"
+                                onchange="checkQuantity()"/>
+                    </div>
+                    <apex:actionFunction action="{!bikeOrder}" name="Test1" rerender="showstate"></apex:actionFunction>
+                    <apex:actionFunction action="{!Practice4Page1}" name="Practice4Page1"
+                                         rerender="showstate"></apex:actionFunction>
+                    <apex:actionFunction action="{!getCont}" name="getCont"
+                                         reRender="fname, lname"></apex:actionFunction>
+                    <apex:actionFunction action="{!checkQuantity}" name="checkQuantity"
+                                         reRender="buttons, total"></apex:actionFunction>
+                    <apex:actionFunction action="{!Practice4Page2}" name="Practice4Page2" reRender="showstate">
+                        <apex:param name="id" assignTo="{!prodId}" value=""/>
+                    </apex:actionFunction>
+                </apex:form>
+            </div>
+        </div>
+    </div>
+    <div class="slds-form-element  slds-align_absolute-center"><span class="slds-form-element__label"><font size="5"
+                                                                                                            color="#4682B4">{!$Label.footer}</font></span>
+    </div>
+</apex:page>

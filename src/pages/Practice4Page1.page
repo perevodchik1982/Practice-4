@@ -1,0 +1,83 @@
+<apex:page controller="Practice4Controller1" sidebar="false" showHeader="false" docType="html-5.0">
+    <apex:slds />
+    <div class="slds-page-header">
+        <div class="slds-page-header__row">
+<span class="slds-icon_container slds-icon-custom-custom93">
+<svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+<use xmlns:xlink="http://www.w3.org/1999/xlink"
+     xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/custom-sprite/svg/symbols.svg#custom93')}"/>
+</svg>
+</span>
+            <div style="margin-left:1rem; font-size:200%">{!$Label.bikeShop1}</div>
+        </div>
+    </div>
+    <div style="width: 20%; margin: auto;">
+        <apex:pageMessages />
+    </div>
+    <apex:outputPanel id="prodTable">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <tbody>
+            <tr class="slds-hint-parent">
+                <td data-label="products">
+                    <apex:repeat value="{!products}" var="prod">
+                        <div class="slds-card">
+                            <div class="slds-grid">
+                                <div class="slds-col slds-large-size_1-of-4">
+                                    <div class="slds-grid_vertical" style="height:100%">
+                                        <div class="slds-col" style="margin-left:0.5rem"><font size="5"
+                                                                                               color="#4682B4">{!prod.Name}</font>
+                                        </div>
+                                        <div class="slds-col" style="text-align: center;">
+                                            <apex:image id="pic" value="{!prod.Image_Url__c}"
+                                                        style="margin-bottom:0.5rem" width="250px" height="auto"
+                                                        alt="Description"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-large-size_3-of-4">
+                                    <div class="slds-grid_vertical" style="height:100%">
+                                        <div class="slds-col"><span class="slds-form-element__label"><font size="5"
+                                                                                                           color="#3CB371">Highlights of our {!prod.Name}
+                                                    :</font></span></div>
+                                        <div class="slds-col"><p style="white-space: normal"><font size="4"
+                                                                                                   color="#4B0082">{!LEFT(prod.Product_Description__c, 315)}
+                                                    ...</font></p></div>
+                                        <div class="slds-grid" style="height:100px; width:1400px">
+                                            <div class="slds-col slds-align-top" style="font-size:135%">
+                                                <span>Available for purchase: {!prod.Units_Available__c}</span>
+                                            </div>
+                                            <div class="slds-col slds-align-middle" style="font-size:135%">
+                                                <span>Price {!prod.Unit_Price__c} USD for one bike</span>
+                                            </div>
+                                            <div class="slds-col slds-align-bottom" style="font-size:135%">
+                                                <span><button class="slds-button slds-button_brand"
+                                                              style="margin-bottom:0.5rem"
+                                                              onclick="Practice4Page3('{!prod.Id}')">{!$Label.buy}</button><button
+                                                            class="slds-button slds-button_outline-brand"
+                                                            style="margin-bottom:0.5rem"
+                                                            onclick="Practice4Page2('{!prod.Id}')">{!$Label.additionalInformation}</button></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </apex:repeat>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </apex:outputPanel>
+    <div class="slds-form-element  slds-align_absolute-center"><span class="slds-form-element__label"><font size="5"
+                                                                                                            color="#4682B4">{!$Label.footer}</font></span>
+    </div>
+    <br/>
+    <apex:form >
+        <apex:actionFunction action="{!Practice4Page2}" name="Practice4Page2" rerender="showstate">
+            <apex:param name="id" assignTo="{!prodId}" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction action="{!Practice4Page3}" name="Practice4Page3" rerender="showstate">
+            <apex:param name="id" assignTo="{!prodId}" value=""/>
+        </apex:actionFunction>
+    </apex:form>
+</apex:page>
